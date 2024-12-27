@@ -14,6 +14,7 @@ const StationAssign = () => {
     "pettah",
     "Nikaweratiya",
     "Dematagoda",
+    "Kuliyapitiya",
   ];
   const [assignStation, setAssignStation] = useState({});
 
@@ -45,8 +46,7 @@ const StationAssign = () => {
           station: assignStation[c_id],
         }
       );
-      
-      
+
       if (response.status === 200) {
         setComplaints((prevComplaints) =>
           prevComplaints.filter((complaint) => complaint.c_id !== c_id)
@@ -61,7 +61,7 @@ const StationAssign = () => {
 
   return (
     <div>
-      <div className="mt-4 p-3 space-x-3 flex flex-row items-center justify-center ">
+      {/* <div className="mt-4 p-3 space-x-3 flex flex-row items-center justify-center ">
         <select className={style}>
           <option>Province</option>
         </select>
@@ -77,8 +77,9 @@ const StationAssign = () => {
         <button className="bg-blue-500 p-3 w-[100px] text-white text-xl rounded-md">
           Load
         </button>
-      </div>
-      <div className="flex p-2 w-full">
+      </div> */}
+      <div className="flex p-2 w-full flex-col ">
+        <h1 className="text-center py-3 text-3xl font-bold">Station Assigning</h1>
         <table className="table-auto border-separate border-spacing-2 border-2 border-gray-300 bg-white w-full">
           <thead>
             <tr>
@@ -91,6 +92,7 @@ const StationAssign = () => {
               <th className={th}>Town</th>
               <th className={th}>District</th>
               <th className={th}>Province</th>
+              <th className={th}>Division</th>
               <th className={th}>Station</th>
             </tr>
           </thead>
@@ -110,6 +112,7 @@ const StationAssign = () => {
                 <td className={td}>{row.city}</td>
                 <td className={td}>{row.district}</td>
                 <td className={td}>{row.province}</td>
+                <td className={td}>{row.division}</td>
                 <td className={td}>
                   <select
                     id={`station-${row.c_id}`}

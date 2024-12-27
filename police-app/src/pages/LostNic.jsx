@@ -43,7 +43,25 @@ const LostNic = () => {
       );
       console.log("Data inserted successfully:", response.data);
       alert("complaint added successfully!");
-      setFormData(null);
+      setFormData({
+        c_id: "",
+        full_name: "",
+        nic: "",
+        complaint_date: "",
+        complaint_type: "",
+        address_1: "",
+        address_2: "",
+        city: "",
+        district: "",
+        province: "",
+        postal_code: "",
+        lost_date: "",
+        lost_time: "",
+        lost_location: "",
+        last_known_date: "",
+        last_known_time: "",
+        last_known_location: "",
+      });
     } catch (error) {
       console.error("Error inserting data:", error);
       alert("Failed to create user!");
@@ -83,7 +101,7 @@ const LostNic = () => {
                   id="fullName"
                   type="text"
                   placeholder="Full Name"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                 />
               </div>
               <div>
@@ -101,7 +119,7 @@ const LostNic = () => {
                   id="nicNumber"
                   type="text"
                   placeholder="NIC Number"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                 />
               </div>
               <div className="flex flex-col space-y-2">
@@ -114,7 +132,7 @@ const LostNic = () => {
                 <select
                   name="complaint_type"
                   id="complaint_type"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                   value={formData.complaint_type}
                   onChange={handleChange}
                 >
@@ -122,6 +140,7 @@ const LostNic = () => {
                   <option value="lost Passport">Lost Passport</option>
                   <option value="accident">Accident</option>
                   <option value="pick-Pocket">Pick-pocket</option>
+                  <option value="theft">Theft</option>
                 </select>
               </div>
             </div>
@@ -146,7 +165,7 @@ const LostNic = () => {
                   id="addressLine1"
                   type="text"
                   placeholder="Address Line 1"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                 />
               </div>
               <div>
@@ -163,13 +182,13 @@ const LostNic = () => {
                   id="addressLine2"
                   type="text"
                   placeholder="Address Line 2"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                 />
               </div>
               <div>
                 <label
                   htmlFor="city"
-                  className="block font-medium text-gray-700"
+                  className="block font-medium text-gray-700 "
                 >
                   City
                 </label>
@@ -181,7 +200,7 @@ const LostNic = () => {
                   id="city"
                   type="text"
                   placeholder="City"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                 />
               </div>
               <div>
@@ -198,7 +217,7 @@ const LostNic = () => {
                   id="district"
                   type="text"
                   placeholder="District"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                 />
               </div>
               <div>
@@ -215,7 +234,7 @@ const LostNic = () => {
                   id="province"
                   type="text"
                   placeholder="Province"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                 />
               </div>
               <div>
@@ -232,7 +251,7 @@ const LostNic = () => {
                   id="postalCode"
                   type="number"
                   placeholder="Postal Code"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                 />
               </div>
             </div>
@@ -258,7 +277,7 @@ const LostNic = () => {
                   required
                   id="lostDate"
                   type="date"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                 />
               </div>
               <div>
@@ -275,7 +294,7 @@ const LostNic = () => {
                   required
                   id="lostTime"
                   type="time"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                 />
               </div>
               <div>
@@ -292,7 +311,7 @@ const LostNic = () => {
                   id="lostLocation"
                   type="text"
                   placeholder="Lost Location"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                 />
               </div>
             </div>
@@ -318,7 +337,7 @@ const LostNic = () => {
                   required
                   id="lastKnownDate"
                   type="date"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                 />
               </div>
               <div>
@@ -335,7 +354,7 @@ const LostNic = () => {
                   required
                   id="lastKnownTime"
                   type="time"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                 />
               </div>
               <div>
@@ -353,7 +372,7 @@ const LostNic = () => {
                   id="lastKnownLocation"
                   type="text"
                   placeholder="Last Known Location"
-                  className="border rounded-md w-full p-2 mt-1"
+                  className="border rounded-md w-full p-2 mt-1 focus:bg-blue-100"
                 />
               </div>
             </div>
