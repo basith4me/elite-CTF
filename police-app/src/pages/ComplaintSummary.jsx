@@ -11,13 +11,13 @@ const ComplaintSummary = () => {
   const provinces = ["North western", "Western", "Eastern", "central"];
   const stations = [
     "Dehiwala",
-    "pettah",
-    "maradana",
+    "Pettah",
+    "Kuliyapitiya",
     "Nikaweratiya",
-    "panadura",
-    "wellawatta",
+    "Panadura",
+    "Wellawatta",
   ];
-  const divisions = ["colombo", "Kurunegala"];
+  const divisions = ["Colombo", "Kurunegala", 'Panadura'];
   //states of filters
   const [province, setProvince] = useState("");
   const [district, setDistrict] = useState("");
@@ -173,6 +173,7 @@ const ComplaintSummary = () => {
               value={complaint_type}
               onChange={(e) => setComplaintType(e.target.value)}
             >
+              <option>Select a complaint</option>
               <option value="Lost NIC">Lost NIC</option>
               <option value="Lost Passport">Lost Passport</option>
               <option value="Accident">Accident</option>

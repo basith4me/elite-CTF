@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { ToastContainer,toast } from "react-toastify";
 
 const LostNic = () => {
   const date = new Date();
@@ -42,7 +43,8 @@ const LostNic = () => {
         // }
       );
       console.log("Data inserted successfully:", response.data);
-      alert("complaint added successfully!");
+      // alert("complaint added successfully!");
+      toast.success("Complaint added successfully!");
       setFormData({
         c_id: "",
         full_name: "",
@@ -64,7 +66,8 @@ const LostNic = () => {
       });
     } catch (error) {
       console.error("Error inserting data:", error);
-      alert("Failed to create user!");
+      // alert("Failed to create user!");
+      toast.error("Failed to add complaint");
     }
   };
   return (
@@ -387,6 +390,7 @@ const LostNic = () => {
             </button>
           </div>
         </form>
+        <ToastContainer />
       </div>
     </>
   );
