@@ -61,6 +61,21 @@ const StationDashboard = () => {
       setShowRecords(true);
     }
   };
+  //filter comlaints by complaint type
+  const [complaintType, setComplaintType] = useState("");
+
+  const handleTypeFilter = () => {
+    if (complaintType) {
+      const filtered = complaints.filter(
+        (complaint) => complaint.complaint_type === complaintType
+      );
+      setFilteredComplaints(filtered);
+      setShowRecords(false);
+    } else {
+      setFilteredComplaints([]); // Reset filtered complaints
+      setShowRecords(true);
+    }
+  };
 
   // Styles
   const tableStyles = {
@@ -97,27 +112,52 @@ const StationDashboard = () => {
       {complaints.length > 0 ? (
         <div className="p-2 py-3">
           <h1 className="font-bold text-start">Filter by Date</h1>
-          <div className="space-x-5 p-2">
-            <label htmlFor="">Start Date</label>
-            <input
-              type="date"
-              className="p-2 border border-blue-400"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-            />
-            <label htmlFor="">End Date</label>
-            <input
-              type="date"
-              className="p-2 border border-blue-400"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-            />
-            <button
-              className="bg-blue-600 p-2 rounded-md text-white font-bold"
-              onClick={handleFilter}
-            >
-              Filter
-            </button>
+          <div className="flex space-x-5 p-2 justify-between flex-row items-cneter">
+            <div className="space-x-3">
+              <label htmlFor="">Start Date</label>
+              <input
+                type="date"
+                className="p-2 border border-blue-400"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              <label htmlFor="">End Date</label>
+              <input
+                type="date"
+                className="p-2 border border-blue-400"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+              <button
+                className="bg-blue-600 p-2 rounded-md text-white font-bold"
+                onClick={handleFilter}
+              >
+                Filter
+              </button>
+            </div>
+            <div className="flex flex-row justify-center items-center space-x-3">
+              <h1 className="font-bold">Filter by type</h1>
+              <select
+                name=""
+                id=""
+                value={complaintType}
+                onChange={(e) => setComplaintType(e.target.value)}
+                className="p-2 border border-blue-400"
+              >
+                <option>Select a complaint</option>
+                <option value="Lost NIC">Lost NIC</option>
+                <option value="Lost Passport">Lost Passport</option>
+                <option value="Accident">Accident</option>
+                <option value="Pick-pocket">Pick-pocket</option>
+                <option value="theft">Theft</option>
+              </select>
+              <button
+                className="bg-blue-600 p-2 rounded-md font-bold text-white"
+                onClick={handleTypeFilter}
+              >
+                Filter
+              </button>
+            </div>
           </div>
           <table className="table-auto border-separate border-spacing-2 border-2 border-gray-300 bg-white w-full">
             <thead>

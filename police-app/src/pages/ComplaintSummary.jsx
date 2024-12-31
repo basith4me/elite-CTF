@@ -9,15 +9,11 @@ const ComplaintSummary = () => {
   //drodown data.
   const districts = ["Colombo", "kandy", "Galle", "Ampara"];
   const provinces = ["North western", "Western", "Eastern", "central"];
-  const stations = [
-    "Dehiwala",
-    "Pettah",
-    "Kuliyapitiya",
-    "Nikaweratiya",
-    "Panadura",
-    "Wellawatta",
-  ];
-  const divisions = ["Colombo", "Kurunegala", 'Panadura'];
+  const colomboDiv = ["Wellawatta", "Pettah", "Dematagoda"];
+  const panaduraDiv = ["Panadura", "Dehiwala"];
+  const kurunegalaDiv = ["Nikaweratiya", "Kuliyapitiya"];
+  const divisions = ["Colombo", "Kurunegala", "Panadura"];
+
   //states of filters
   const [province, setProvince] = useState("");
   const [district, setDistrict] = useState("");
@@ -126,9 +122,21 @@ const ComplaintSummary = () => {
             onChange={(e) => setStation(e.target.value)}
           >
             <option>Select a Station</option>
-            {stations.map((item, index) => (
-              <option key={index}>{item}</option>
-            ))}
+            {division === "Colombo"
+              ? colomboDiv.map((item, index) => (
+                  <option key={index}>{item}</option>
+                ))
+              : division === "Panadura"
+              ? panaduraDiv.map((item, index) => (
+                  <option key={index}>{item}</option>
+                ))
+              : division === "Kurunegala"
+              ? kurunegalaDiv.map((item, index) => (
+                  <option key={index}>{item}</option>
+                ))
+              : colomboDiv.map((item, index) => (
+                  <option key={index}>{item}</option>
+                ))}
           </select>
           <button
             className="bg-blue-500 p-3 w-[100px] text-white text-xl rounded-md"

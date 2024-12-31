@@ -8,6 +8,8 @@ const MyComplaints = () => {
   const [complaints, setComplaints] = useState([]); // State to hold complaint data
   const [selectedComplaint, setSelectedComplaint] = useState(false);
   const [showPdf, setShowPdf] = useState(false);
+  // const [expandedIndex, setExpandedIndex] = useState([]); // State for accordion
+  const [expandedComplaint, setExpandedComplaint] = useState(null);
 
   useEffect(() => {
     const fetchComplaints = async () => {
@@ -31,12 +33,15 @@ const MyComplaints = () => {
     setShowPdf(true);
   };
 
+  const toggleAccordion = (index) => {
+    setExpandedComplaint(expandedComplaint === index ? null : index);
+  };
+
   return (
     <>
       <div>
         {showPdf && selectedComplaint && (
           <div className="h-[100vh] m-3 z-10">
-            {/* <button onClick={() => setShowPdf(false)} className="bg-white text-red-500 border-2 border-red-500 ">close</button> */}
             <IoClose
               onClick={() => setShowPdf(false)}
               className="bg-slate-300 rounded-full text-4xl texl-bold text-red-600 cursor-pointer "
@@ -47,131 +52,136 @@ const MyComplaints = () => {
           </div>
         )}
 
-        <div className="p-6 bg-gray-50 min-h-screen">
+        <div className="p-6 bg-gray-50 min-h-screen ">
           <div className="text-center">
             <h1 className="font-extrabold text-4xl text-gray-800 mb-6">
               My Complaints
             </h1>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 z-20">
-            {complaints.map((complaint) => (
+          <div className="space-y-4 justify-center items-center flex flex-col">
+            {complaints.map((complaint, index) => (
               <div
                 key={complaint.c_id}
-                className="bg-white p-6 rounded-lg shadow-lg space-y-4"
+                className="border border-gray-300 rounded-lg overflow-hidden shadow-sm w-1/2 
+                "
               >
-                {/* <h2 className="text-xl font-bold text-gray-700">
-                  Complaint About: <span className="font-normal">Lost NIC</span>
-                </h2> */}
+                <div
+                  className="bg-gray-100 p-4 cursor-pointer flex justify-between items-center text-center"
+                  onClick={() => toggleAccordion(index)}
+                >
+                  <h2 className="text-lg font-bold text-gray-700 text-ceneter">
+                    {complaint.complaint_type}
+                  </h2>
+                  {complaint.station === null ? (
+                    <p className="bg-red-400 p-1 rounded-md">
+                      Station Not assigned
+                    </p>
+                  ) : (
+                    <p className="bg-green-200 p-1 rounded-md">
+                      {complaint.station} Police Station
+                    </p>
+                  )}
+                  <p>{complaint.complaint_date}</p>
+                  <span className="text-gray-500">
+                    {expandedComplaint === index ? "-" : "+"}
+                  </span>
+                </div>
+                {expandedComplaint === index && (
+                  <div className="bg-white p-6 space-y-4">
+                    <div>
+                      <h2 className="text-lg font-bold text-gray-700">
+                        Complaint ID
+                      </h2>
+                      <p className="text-gray-600">{complaint.c_id}</p>
+                    </div>
+                    <div>
+                      <h2 className="text-lg font-bold text-gray-700">
+                        Complaint Date
+                      </h2>
+                      <p className="text-gray-600">
+                        {complaint.complaint_date}
+                      </p>
+                    </div>
+                    <div>
+                      <h2 className="text-lg font-bold text-gray-700">
+                        Complaint Type
+                      </h2>
+                      <p className="text-gray-600">
+                        {complaint.complaint_type}
+                      </p>
+                    </div>
+                    <div>
+                      <h2 className="text-lg font-bold text-gray-700">
+                        Full Name
+                      </h2>
+                      <p className="text-gray-600">{complaint.full_name}</p>
+                    </div>
+                    <div>
+                      <h2 className="text-lg font-bold text-gray-700">
+                        NIC Number
+                      </h2>
+                      <p className="text-gray-600">{complaint.nic}</p>
+                    </div>
+                    <div>
+                      <h2 className="text-lg font-bold text-gray-700">
+                        Address
+                      </h2>
 
-                {/* Personal Details */}
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">
-                    Complaint ID
-                  </h2>
-                  <p className="text-gray-600">{complaint.c_id}</p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">
-                    Complaint Type
-                  </h2>
-                  <p className="text-gray-600">{complaint.complaint_type}</p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">
-                    Full Name:
-                  </h2>
-                  <p className="text-gray-600">{complaint.full_name}</p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">
-                    NIC Number:
-                  </h2>
-                  <p className="text-gray-600">{complaint.nic}</p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">
-                    Address Line 1:
-                  </h2>
-                  <p className="text-gray-600">{complaint.address_1}</p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">
-                    Address Line 2:
-                  </h2>
-                  <p className="text-gray-600">{complaint.address_2}</p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">City:</h2>
-                  <p className="text-gray-600">{complaint.city}</p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">District:</h2>
-                  <p className="text-gray-600">{complaint.district}</p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">Province</h2>
-                  <p className="text-gray-600">{complaint.province}</p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">
-                    Postal Code
-                  </h2>
-                  <p className="text-gray-600">{complaint.postal_code}</p>
-                </div>
-
-                {/* Lost Details */}
-                <h2 className="text-xl font-bold text-gray-700 mt-6">
-                  Lost Details:
-                </h2>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">
-                    Lost Date:
-                  </h2>
-                  <p className="text-gray-600">{complaint.lost_date}</p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">
-                    Lost Time:
-                  </h2>
-                  <p className="text-gray-600">{complaint.lost_time}</p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">
-                    Lost Location:
-                  </h2>
-                  <p className="text-gray-600">{complaint.lost_location}</p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">
-                    Last Known Date:
-                  </h2>
-                  <p className="text-gray-600">{complaint.last_known_date}</p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">
-                    Last Known Time:
-                  </h2>
-                  <p className="text-gray-600">{complaint.last_known_time}</p>
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-700">
-                    Last Known Location:
-                  </h2>
-                  <p className="text-gray-600">
-                    {complaint.last_known_location}
-                  </p>
-                </div>
-
-                {/* Download PDF */}
-                <div className="text-right">
-                  <p
-                    className="text-blue-500 hover:text-blue-700 font-semibold cursor-pointer"
-                    onClick={() => handleDownloadPdf(complaint)}
-                  >
-                    Download PDF
-                  </p>
-                </div>
+                      <p className="text-gray-600">
+                        Address Line 1 : {complaint.address_1}
+                      </p>
+                      <p className="text-gray-600">
+                        Address Line 2 : {complaint.address_2}
+                      </p>
+                      <p className="text-gray-600">
+                        Town : {complaint.city}
+                        <p>District : {complaint.district} </p>
+                        <p>Province : {complaint.province}</p>
+                      </p>
+                      <p className="text-gray-600">
+                        Postal Code : {complaint.postal_code}
+                      </p>
+                    </div>
+                    <div>
+                      <h2 className="text-lg font-bold text-gray-700">
+                        Lost Details
+                      </h2>
+                      <p className="text-gray-600">
+                        Date: {complaint.lost_date}
+                      </p>
+                      <p className="text-gray-600">
+                        Time: {complaint.lost_time}
+                      </p>
+                      <p className="text-gray-600">
+                        Location: {complaint.lost_location}
+                      </p>
+                      <p className="text-gray-600">
+                        Last Known Date: {complaint.last_known_date}
+                      </p>
+                      <p className="text-gray-600">
+                        Last Known Time: {complaint.last_known_time}
+                      </p>
+                      <p className="text-gray-600">
+                        Last Known Location: {complaint.last_known_location}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p
+                        className="text-blue-500 hover:text-blue-700 font-semibold cursor-pointer"
+                        onClick={() =>
+                          complaint.station === null
+                            ? alert(
+                                "The Police headquarters will assign your complaint to a relevant station soon. Followed by that, you may download your complaint as a PDF document."
+                              )
+                            : handleDownloadPdf(complaint)
+                        }
+                      >
+                        Download PDF
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
